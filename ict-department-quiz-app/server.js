@@ -629,8 +629,14 @@ app.use('/api', (error, req, res, next) => {
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
 initializeStore().then(() => {
-  app.listen(PORT, '0.0.0.0', () => console.log(`ICT Department Quiz App is running on port ${PORT}`));
+    if (process.env.VERCEL !== '1') {
+        app.listen(PORT, '0.0.0.0', () => con
+    }
 }).catch(error => {
-  console.error('Could not initialize the application:', error);
-  process.exit(1);
+    console.error('Could not initialize the
+    if (process.env.VERCEL !== '1') {
+        process.exit(1);
+    }
 });
+
+module.exports = app;
